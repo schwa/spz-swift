@@ -1,0 +1,3 @@
+[submodule "Sources/spz_cpp/spz"]
+	path = Sources/spz_cpp/spz
+	url = https://github.com/nianticlabs/spz.git

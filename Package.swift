@@ -1,24 +1,35 @@
 // swift-tools-version: 6.0
-// The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
 let package = Package(
-    name: "spm-swift",
+    name: "spz-swift",
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
-        .library(
-            name: "spm-swift",
-            targets: ["spm-swift"]),
+        .library(name: "spz", targets: ["spz"]),
+        .library(name: "spz_cpp", targets: ["spz_cpp"]),
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "spm-swift"),
-        .testTarget(
-            name: "spm-swiftTests",
-            dependencies: ["spm-swift"]
+            name: "spz",
+            dependencies: ["spz_cpp"],
+            swiftSettings: [
+                .interoperabilityMode(.Cxx)
+            ]
+        ),
+        .executableTarget(
+            name: "spzcli",
+            dependencies: ["spz_cpp"],
+            swiftSettings: [
+                .interoperabilityMode(.Cxx)
+            ]
+        ),
+        .target(name: "spz_cpp",
+            cxxSettings: [
+                .unsafeFlags(["-std=c++20"])
+            ],
+            linkerSettings: [
+                .linkedLibrary("z")
+            ]
         ),
     ]
 )

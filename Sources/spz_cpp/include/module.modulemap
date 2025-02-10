@@ -1,0 +1,5 @@
+
+module spz_cpp {
+    header "spz_cpp.h"
+    export *
+}
